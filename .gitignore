@@ -1,0 +1,17 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.bcf
+*.run.xml
+
+# Output directory
+output/
+
+# Editor backup files
+*~
+*.swp
+*.swo

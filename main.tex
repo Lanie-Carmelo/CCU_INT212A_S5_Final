@@ -1,0 +1,43 @@
+% APA 7 Student Paper Template
+% Author: Lanie Molinar Carmelo
+% Usage: Fill in metadata, write content, and build with 'make pdf'
+% NOTE: This template uses biblatex with the biber backend.
+%       If building manually, run:
+%         pdflatex main.tex
+%         biber main
+%         pdflatex main.tex
+%         pdflatex main.tex
+
+\documentclass[stu,12pt,floatsintext]{apa7}
+
+% Language and citation setup
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{references.bib}
+
+% Font and encoding
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}  % Modern Times-like font with math support
+
+% Document metadata
+\title{<Title>}
+\author{<Author>}
+\authorsaffiliations{<Institution>}
+\duedate{<Due Date>}
+\course{<Course>}
+\professor{<Professor>}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+\pagestyle{plain}
+
+\section{<Section Title>}
+Here is a citation to a sample source \parencite{sample2024}.
+
+\printbibliography
+
+\end{document}
