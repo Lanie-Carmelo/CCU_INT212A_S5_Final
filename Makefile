@@ -1,4 +1,4 @@
-# Makefile for LaTeX project with lwarp for HTML output
+# Makefile for LaTeX project with pandoc for HTML output
 
 # Variables
 TEXFILE = main.tex
@@ -10,26 +10,29 @@ all: pdf html docx
 
 # PDF target
 pdf:
-    pdflatex $(TEXFILE)
-    biber main
-    pdflatex $(TEXFILE)
-    pdflatex $(TEXFILE)
+	pdflatex $(TEXFILE)
+	biber main
+	pdflatex $(TEXFILE)
+	pdflatex $(TEXFILE)
 
-# HTML target using lwarp
-html: $(TEXFILE) $(BIBFILE)
-    lwarpmk html
-    mkdir -p $(OUTPUT_DIR)
-    cp *.html *.css *.svg *.png *.jpg *.gif $(OUTPUT_DIR) 2>/dev/null || true
+# HTML target using pandoc
+html: $(TEXFILE) $(BIBFILE) | $(OUTPUT_DIR)
+	pandoc $(TEXFILE) \
+		--bibliography=$(BIBFILE) \
+		--csl=apa.csl \
+		--citeproc \
+		--standalone \
+		-o $(OUTPUT_DIR)/main.html
 
-# DOCX target (still uses pandoc)
-docx: $(BIBFILE)
-    pandoc $(TEXFILE) --output=$(OUTPUT_DIR)/main.docx --bibliography=$(BIBFILE) --csl=apa.csl --metadata-file=metadata.yaml
+# DOCX target
+docx: $(BIBFILE) | $(OUTPUT_DIR)
+	pandoc $(TEXFILE) --output=$(OUTPUT_DIR)/main.docx --bibliography=$(BIBFILE) --csl=apa.csl --metadata-file=metadata.yaml
 
 # Clean target
 clean:
-    rm -f *.aux *.bbl *.blg *.log *.out *.toc *.bcf *.run.xml *.html *.css *.svg *.png *.jpg *.gif
-    rm -rf $(OUTPUT_DIR)
+	rm -f *.aux *.bbl *.blg *.log *.out *.toc *.bcf *.run.xml
+	rm -rf $(OUTPUT_DIR)
 
 # Ensure output directory exists
 $(OUTPUT_DIR):
-    mkdir -p $(OUTPUT_DIR)
+	mkdir -p $(OUTPUT_DIR)
