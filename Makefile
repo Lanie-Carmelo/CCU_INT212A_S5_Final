@@ -26,7 +26,7 @@ html: $(TEXFILE) $(BIBFILE) | $(OUTPUT_DIR)
 
 # DOCX target
 docx: $(BIBFILE) | $(OUTPUT_DIR)
-	pandoc $(TEXFILE) --output=$(OUTPUT_DIR)/main.docx --bibliography=$(BIBFILE) --csl=apa.csl --metadata-file=metadata.yaml
+	pandoc $(TEXFILE) --output=$(OUTPUT_DIR)/main.docx --bibliography=$(BIBFILE) --csl=apa.csl
 
 # Clean target
 clean:
